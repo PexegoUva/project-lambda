@@ -2,6 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+task printVersionName {
+    doLast {
+        println "v" + android.defaultConfig.versionName
+    }
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.1"
@@ -9,9 +15,21 @@ android {
     defaultConfig {
         applicationId "com.pexegouva.projectlambda"
         minSdkVersion 24
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 28
+
+        // Manifest version information!
+        def versionMajor = 0
+        def versionMinor = 0
+        def versionPatch = 1
+        def versionBuild = 'debug' // bump for dogfood builds, public betas, etc.
+
+        versionCode = versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100
+        versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
+
+        // It must be behind Android versioning.
+        if (versionBuild != 0) {
+            versionName += "-${versionBuild}"
+        }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -27,7 +45,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.core:core-ktx:1.3.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
