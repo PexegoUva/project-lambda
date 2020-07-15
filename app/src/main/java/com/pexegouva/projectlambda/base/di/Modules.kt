@@ -7,5 +7,8 @@ val allModules =
     navigatorModule,
 
     // Activity modules
-    loginModule
+    loginModule,
+
+    // Repository modules
+    repositoryModule
   )
