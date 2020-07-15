@@ -1,7 +1,7 @@
 package com.pexegouva.projectlambda.features.login
 
-import android.view.View
 import com.pexegouva.projectlambda.base.mvp.Presenter
+import com.pexegouva.projectlambda.base.mvp.View
 
 class LoginPresenter: Presenter {
   private lateinit var view: LoginView
@@ -10,5 +10,7 @@ class LoginPresenter: Presenter {
     this.view = view as LoginView
   }
 
-
+  fun signInUser(email: String, password: String) {
+    val email = email
+  }
 }

@@ -6,7 +6,6 @@ import org.junit.Before
 import org.junit.Test
 import org.robolectric.Robolectric
 
-
 class MainActivityTest: AndroidTest() {
   private lateinit var mainActivity: MainActivity
 
