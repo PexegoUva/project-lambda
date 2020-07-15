@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.pexegouva.projectlambda.R
 
-class LoginActivity: AppCompatActivity() {
+class LoginActivity: AppCompatActivity(), LoginView {
   companion object {
     fun callingIntent(context: Context) = Intent(context, LoginActivity::class.java)
   }
@@ -14,5 +14,13 @@ class LoginActivity: AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.login_layout)
+  }
+
+  override fun handleLoginSuccess() {
+    TODO("Not yet implemented")
+  }
+
+  override fun handleError() {
+    TODO("Not yet implemented")
   }
 }
