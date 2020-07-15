@@ -5,6 +5,8 @@ import org.koin.dsl.module
 
 val loginModule = module {
   scope(named<LoginActivity>()) {
-    scoped { LoginPresenter() }
+    factory { PostLogin(loginRepository = get()) }
+
+    scoped { LoginPresenter(postLogin = get()) }
   }
 }

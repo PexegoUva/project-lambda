@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.pexegouva.projectlambda.R
+import com.pexegouva.projectlambda.base.error.Failure
 import kotlinx.android.synthetic.main.login_layout.*
 import org.koin.androidx.scope.currentScope
 
@@ -44,7 +45,7 @@ class LoginActivity: AppCompatActivity(), LoginView {
     TODO("Not yet implemented")
   }
 
-  override fun handleError() {
+  override fun handleError(failure: Failure) {
     TODO("Not yet implemented")
   }
 }

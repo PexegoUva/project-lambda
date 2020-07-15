@@ -45,7 +45,9 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
                       '**/BuildConfig.*',
                       '**/Manifest*.*',
                       '**/*Test*.*',
-                      '**/ProjectLambdaApplication',
+                      '**/*Module*.*',
+                      '**/*Failure*.*',
+                      '**/*Application*.*',
                       '**/CiMattersApplication*.*',
                       'android/**/*.*'
     ]
@@ -116,6 +118,7 @@ android {
 def koin_version = "2.0.1"
 def espresso_version = "3.2.0"
 def mockito_version = "2.7.22"
+def arrow_version = "0.10.4"
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -125,6 +128,8 @@ dependencies {
     implementation "org.koin:koin-androidx-scope:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
     implementation "org.koin:koin-androidx-ext:$koin_version"
+    implementation "io.arrow-kt:arrow-core:$arrow_version"
+    implementation "io.arrow-kt:arrow-syntax:$arrow_version"
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
 
