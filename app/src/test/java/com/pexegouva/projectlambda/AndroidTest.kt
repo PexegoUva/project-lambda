@@ -8,11 +8,12 @@ import org.junit.AfterClass
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.koin.core.context.stopKoin
+import org.koin.test.KoinTest
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows
 
 @RunWith(RobolectricTestRunner::class)
-abstract class AndroidTest {
+abstract class AndroidTest: KoinTest {
   companion object {
     @AfterClass
     @JvmStatic

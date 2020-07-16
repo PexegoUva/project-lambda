@@ -3,13 +3,13 @@ package com.pexegouva.projectlambda.features.login
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.pexegouva.projectlambda.R
 import com.pexegouva.projectlambda.base.error.Failure
+import com.pexegouva.projectlambda.base.mvp.BaseActivity
 import kotlinx.android.synthetic.main.login_layout.*
 import org.koin.androidx.scope.currentScope
 
-class LoginActivity: AppCompatActivity(), LoginView {
+class LoginActivity: BaseActivity(), LoginView {
   companion object {
     fun callingIntent(context: Context) = Intent(context, LoginActivity::class.java)
   }
@@ -46,6 +46,10 @@ class LoginActivity: AppCompatActivity(), LoginView {
   }
 
   override fun handleError(failure: Failure) {
-    TODO("Not yet implemented")
+    when (failure) {
+      is LoginFailures.IncorrectEmailOrPassword -> {
+        showError(getString(R.string.failure_incorrect_email_or_password))
+      }
+    }
   }
 }

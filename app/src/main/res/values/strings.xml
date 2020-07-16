@@ -5,4 +5,6 @@
     <string name="login_screen_email_hint">Email</string>
     <string name="login_screen_password_hint">Password</string>
     <string name="login_screen_signin_button_text">Sign in</string>
+
+    <string name="failure_incorrect_email_or_password">Incorrect email or password, try again</string>
 </resources>
