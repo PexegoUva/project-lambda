@@ -1,9 +1,11 @@
 package com.pexegouva.projectlambda
 
+import androidx.test.core.app.ApplicationProvider
 import com.pexegouva.projectlambda.base.di.allModules
 import org.junit.AfterClass
 import org.junit.BeforeClass
 import org.junit.runner.RunWith
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
@@ -15,7 +17,9 @@ abstract class UnitTest: KoinTest {
     @BeforeClass
     @JvmStatic
     fun beforeTesting() {
-      startKoin { modules(allModules) }
+      startKoin {
+        modules(allModules)
+      }
     }
 
     @AfterClass

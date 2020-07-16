@@ -28,20 +28,22 @@
         android:layout_marginStart="61dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="61dp"
+        android:layout_marginBottom="15dp"
         android:ems="10"
-        android:inputType="textEmailAddress"
         android:hint="@string/login_screen_email_hint"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/loginScreenPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginScreenAppLogo"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/loginScreenAppLogo" />
 
     <EditText
         android:id="@+id/loginScreenPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="61dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="61dp"
         android:ems="10"
         android:hint="@string/login_screen_password_hint"

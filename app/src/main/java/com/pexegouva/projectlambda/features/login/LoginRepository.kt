@@ -6,4 +6,7 @@ import com.pexegouva.projectlambda.base.error.Failure
 class LoginRepository(private val loginDataStoreFactory: LoginDataStoreFactory): ILoginRepository {
   override fun login(email: String, password: String): Either<Failure, AccessToken> =
     loginDataStoreFactory.cloudBased().login(email, password)
+
+  override fun storeToken(accessToken: AccessToken): Either<Failure, Boolean> =
+    loginDataStoreFactory.dbBased().storeToken(accessToken)
 }

@@ -1,19 +1,20 @@
 package com.pexegouva.projectlambda.features.login
 
 import arrow.core.Left
-import com.pexegouva.projectlambda.UnitTest
+import arrow.core.Right
+import com.pexegouva.projectlambda.AndroidTest
 import org.junit.Before
 import org.junit.Test
 import org.koin.test.inject
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-class LoginRepositoryTest: UnitTest() {
+class LoginRepositoryTest: AndroidTest() {
   private lateinit var loginRepository: LoginRepository
   private val loginDataStoreFactory: LoginDataStoreFactory by inject()
 
   @Before
-  fun setUp() {
+  fun cloudTest() {
     loginRepository = LoginRepository(loginDataStoreFactory)
   }
 
@@ -22,5 +23,12 @@ class LoginRepositoryTest: UnitTest() {
     val result = loginRepository.login("fake_email", "fake_password")
     assertNotNull(result)
     assertEquals(result::class.java.name, Left(LoginFailures.IncorrectEmailOrPassword())::class.java.name)
+  }
+
+  @Test
+  fun `should return db data store`() {
+    val result = loginRepository.storeToken(AccessToken("fake_token"))
+    assertNotNull(result)
+    assertEquals(result::class.java.name, Right(true)::class.java.name)
   }
 }

@@ -10,5 +10,5 @@ val allModules =
     loginModule,
 
     // Repository modules
-    repositoryModule
+    loginRepositoryModule
   )
