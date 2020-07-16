@@ -6,6 +6,7 @@ import com.pexegouva.projectlambda.base.error.Failure
 interface ILoginRepository {
   fun login(email: String, password: String): Either<Failure, AccessToken>
   fun storeToken(accessToken: AccessToken): Either<Failure, Boolean>
+  fun getAccessToken(): Either<Failure, AccessToken>
 
   class Network(
     private val service: LoginService
@@ -17,6 +18,10 @@ interface ILoginRepository {
       )
 
     override fun storeToken(accessToken: AccessToken): Either<Failure, Boolean> {
+      TODO("Not yet implemented")
+    }
+
+    override fun getAccessToken(): Either<Failure, AccessToken> {
       TODO("Not yet implemented")
     }
   }
@@ -33,5 +38,11 @@ interface ILoginRepository {
         { Either.left(LoginFailures.DbFailure()) },
         { Either.right(true) }
       )
-    }
+
+    override fun getAccessToken(): Either<Failure, AccessToken> =
+      loginDao.findSessionToken().fold(
+        { Either.left(LoginFailures.DbFailure()) },
+        { Either.right(it.toAccessToken()) }
+      )
+  }
 }

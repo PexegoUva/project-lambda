@@ -13,4 +13,10 @@ class LoginDao(
 
       dbEdit.commit()
     }
+
+  fun findSessionToken(): Try<AccessTokenEntity> =
+    Try {
+      val sessionToken = sessionTokenDb.getString("current_user_session_token", "")
+      AccessTokenEntity(sessionToken!!)
+    }
 }

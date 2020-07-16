@@ -26,8 +26,15 @@ class LoginRepositoryTest: AndroidTest() {
   }
 
   @Test
-  fun `should return db data store`() {
+  fun `should return db data store when storing token`() {
     val result = loginRepository.storeToken(AccessToken("fake_token"))
+    assertNotNull(result)
+    assertEquals(result::class.java.name, Right(true)::class.java.name)
+  }
+
+  @Test
+  fun `should return db data store when getting token`() {
+    val result = loginRepository.getAccessToken()
     assertNotNull(result)
     assertEquals(result::class.java.name, Right(true)::class.java.name)
   }

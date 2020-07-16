@@ -1,14 +1,20 @@
 package com.pexegouva.projectlambda.base.navigator
 
 import android.content.Context
+import com.pexegouva.projectlambda.features.authentication.Authentication
 import com.pexegouva.projectlambda.features.login.LoginActivity
 import com.pexegouva.projectlambda.features.logout.LogoutActivity
 
-class Navigator {
+class Navigator(
+  private val authenticator: Authentication
+) {
   private fun showLogin(context: Context) = context.startActivity(LoginActivity.callingIntent(context))
 
   fun showHomeView(context: Context) {
-    showLogin(context)
+    when (authenticator.userIsAuthenticated()) {
+      true -> showLogoutView(context)
+      false -> showLogin(context)
+    }
   }
 
   fun showLogoutView(context: Context) {

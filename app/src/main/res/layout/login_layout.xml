@@ -15,11 +15,11 @@
         android:adjustViewBounds="false"
         android:cropToPadding="false"
         android:scaleType="fitXY"
+        android:contentDescription="@string/app_logo_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/project_lambda"
-        android:contentDescription="@string/app_logo_description" />
+        app:srcCompat="@drawable/project_lambda" />
 
     <EditText
         android:id="@+id/loginScreenEmail"
