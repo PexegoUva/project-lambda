@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.test.core.app.ApplicationProvider
 import org.amshove.kluent.shouldBeEqualTo
-import org.junit.After
+import org.junit.AfterClass
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.koin.core.context.stopKoin
@@ -13,6 +13,14 @@ import org.robolectric.Shadows
 
 @RunWith(RobolectricTestRunner::class)
 abstract class AndroidTest {
+  companion object {
+    @AfterClass
+    @JvmStatic
+    fun afterTesting() {
+      stopKoin()
+    }
+  }
+
   @Suppress("LeakingThis")
   @Rule @JvmField val injectMocks = InjectMocksRule.create(this@AndroidTest)
 
@@ -23,10 +31,5 @@ abstract class AndroidTest {
     val nextIntent = shadowActivity.peekNextStartedActivity()
 
     return nextIntent.component?.className shouldBeEqualTo destinationActivity::class.java.canonicalName
-  }
-
-  @After
-  fun tearDown() {
-    stopKoin()
   }
 }

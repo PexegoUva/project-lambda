@@ -1,16 +1,10 @@
-package com.pexegouva.projectlambda.base.features.login
+package com.pexegouva.projectlambda.features.login
 
-import arrow.core.Left
 import arrow.core.Right
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.pexegouva.projectlambda.UnitTest
-import com.pexegouva.projectlambda.base.error.Failure
-import com.pexegouva.projectlambda.features.login.AccessToken
-import com.pexegouva.projectlambda.features.login.LoginFailures
-import com.pexegouva.projectlambda.features.login.LoginRepository
-import com.pexegouva.projectlambda.features.login.PostLogin
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
