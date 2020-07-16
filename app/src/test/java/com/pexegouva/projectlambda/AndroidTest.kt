@@ -8,11 +8,12 @@ import org.junit.After
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.koin.core.context.stopKoin
+import org.koin.test.KoinTest
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows
 
 @RunWith(RobolectricTestRunner::class)
-abstract class AndroidTest {
+abstract class AndroidTest: KoinTest {
   @Suppress("LeakingThis")
   @Rule @JvmField val injectMocks = InjectMocksRule.create(this@AndroidTest)
 
@@ -26,7 +27,7 @@ abstract class AndroidTest {
   }
 
   @After
-  fun tearDown() {
+  fun afterEachTests() {
     stopKoin()
   }
 }

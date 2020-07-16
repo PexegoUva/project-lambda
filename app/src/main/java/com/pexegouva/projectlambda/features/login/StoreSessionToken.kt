@@ -3,10 +3,10 @@ package com.pexegouva.projectlambda.features.login
 import arrow.core.Either
 import com.pexegouva.projectlambda.base.error.Failure
 
-class PostLogin(
+class StoreSessionToken(
   private val loginRepository: LoginRepository
 ) {
-  fun execute(email: String, password: String): Either<Failure, AccessToken> {
-    return loginRepository.login(email, password)
+  fun execute(accessToken: AccessToken): Either<Failure, Boolean> {
+    return loginRepository.storeToken(accessToken)
   }
 }

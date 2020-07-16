@@ -23,11 +23,7 @@ licenses:
 
 stages:
   - name: lint
-    if: NOT branch = master
   - name: tests
-    if: NOT branch = master
-  - name: instrumental-tests
-    if: branch = master OR tag
 
 jobs:
   include:
@@ -37,16 +33,15 @@ jobs:
         - ./gradlew lintDebug
     - stage: tests
       script:
-        - ./gradlew testDebugUnitTest jacocoTestReport
-      after_success:
-        - bash <(curl -s https://codecov.io/bash)
-    - stage: instrumental-tests
-      script:
-        - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-        - emulator -avd test -no-window &
+        - ./gradlew testDebugUnitTest
+        - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI --device 'Nexus 4'
+        - emulator -avd test -no-window -skin 768x1280 &
         - android-wait-for-emulator
         - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
         - ./gradlew connectedAndroidTest
+        - ./gradlew jacocoTestReport
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
 
 before_deploy:
   - git config --local user.name "PexegoUva"

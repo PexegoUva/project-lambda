@@ -3,8 +3,10 @@ package com.pexegouva.projectlambda.features.login
 import com.pexegouva.projectlambda.base.mvp.Presenter
 import com.pexegouva.projectlambda.base.mvp.View
 
-class LoginPresenter
-  constructor(private val postLogin: PostLogin): Presenter {
+class LoginPresenter(
+  private val postLogin: PostLogin,
+  private val storeSessionToken: StoreSessionToken
+): Presenter {
   private lateinit var view: LoginView
 
   override fun start(view: View) {
@@ -18,7 +20,12 @@ class LoginPresenter
     )
 
   private fun handleLoginSuccess(accessToken: AccessToken) {
-    // Store access token
-    view.handleLoginSuccess()
+    val accessTokenModel = AccessTokenModel(accessToken.token)
+    view.handleLoginSuccess(accessTokenModel)
+
+    storeSessionToken.execute(accessToken).fold(
+      { view.handleError(it) },
+      { view.showLogoutView() }
+    )
   }
 }
