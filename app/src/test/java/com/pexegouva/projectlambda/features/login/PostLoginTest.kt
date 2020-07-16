@@ -10,10 +10,8 @@ import org.junit.Test
 import org.mockito.Mock
 
 class PostLoginTest: UnitTest() {
-  companion object{
-    const val EMAIL = "just_another_fake_email"
-    const val PASSWORD = "just_another_fake_password"
-  }
+  private val incorrectEmail = "just_another_fake_email"
+  private val incorrectPassword = "just_another_fake_password"
 
   private lateinit var postLogin: PostLogin
 
@@ -22,14 +20,14 @@ class PostLoginTest: UnitTest() {
   @Before fun setUp() {
     postLogin = PostLogin(loginRepository)
     given {
-      loginRepository.login(EMAIL, PASSWORD)
+      loginRepository.login(incorrectEmail, incorrectPassword)
     }.willReturn(Right(AccessToken("fake_session_token")))
   }
 
   @Test fun `should get data from repository`() {
-    postLogin.execute(EMAIL, PASSWORD)
+    postLogin.execute(incorrectEmail, incorrectPassword)
 
-    verify(loginRepository).login(EMAIL, PASSWORD)
+    verify(loginRepository).login(incorrectEmail, incorrectPassword)
     verifyNoMoreInteractions(loginRepository)
   }
 }

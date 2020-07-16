@@ -6,19 +6,17 @@ import org.junit.Test
 import kotlin.test.assertEquals
 
 class AccessTokenModelTest: UnitTest() {
-  companion object{
-    const val TOKEN = "just_another_fake_email"
-  }
+  private val fakeToken = "just_another_fake_email"
 
   private lateinit var accessTokenModel: AccessTokenModel
 
   @Before
   fun setUp() {
-    accessTokenModel = AccessTokenModel(TOKEN)
+    accessTokenModel = AccessTokenModel(fakeToken)
   }
 
   @Test
   fun `returns correct token when initialized`() {
-    assertEquals(accessTokenModel.token, TOKEN)
+    assertEquals(accessTokenModel.token, fakeToken)
   }
 }

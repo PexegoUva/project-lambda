@@ -6,26 +6,24 @@ import org.junit.Test
 import kotlin.test.assertEquals
 
 class AccessTokenEntityTest: UnitTest() {
-  companion object{
-    const val TOKEN = "just_another_fake_email"
-    const val ACCESS_TOKEN_CLASS_NAME = "com.pexegouva.projectlambda.features.login.AccessToken"
-  }
+  private val fakeToken = "just_another_fake_email"
+  private val accessTokenClassName = "com.pexegouva.projectlambda.features.login.AccessToken"
 
   private lateinit var accessTokenEntity: AccessTokenEntity
 
   @Before
   fun setUp() {
-    accessTokenEntity = AccessTokenEntity(TOKEN)
+    accessTokenEntity = AccessTokenEntity(fakeToken)
   }
 
   @Test
   fun `returns correct token when initialized`() {
-    assertEquals(accessTokenEntity.token, TOKEN)
+    assertEquals(accessTokenEntity.token, fakeToken)
   }
 
   @Test
   fun `toAccessToken returns AccessToken`() {
     val accessToken = accessTokenEntity.toAccessToken()
-    assertEquals(accessToken::class.java.name, ACCESS_TOKEN_CLASS_NAME)
+    assertEquals(accessToken::class.java.name, accessTokenClassName)
   }
 }

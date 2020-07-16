@@ -12,10 +12,8 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class NetworkRepositoryTest: UnitTest() {
-  companion object{
-    const val EMAIL = "pexegouva@leviathan.com"
-    const val PASSWORD = "chupliflascinoso"
-  }
+  private val email = "pexegouva@leviathan.com"
+  private val password = "chupliflascinoso"
 
   private lateinit var loginNetworkRepository: ILoginRepository.Network
   private lateinit var accessToken: AccessToken
@@ -32,23 +30,23 @@ class NetworkRepositoryTest: UnitTest() {
     response = Try{ accessTokenEntity }
     accessToken = AccessToken("fake_token")
 
-    given { service.login(EMAIL, PASSWORD) }.willReturn(response)
+    given { service.login(email, password) }.willReturn(response)
     given { accessTokenEntity.toAccessToken() }.willReturn(accessToken)
 
     val foundAccessToken =
-      loginNetworkRepository.login(EMAIL, PASSWORD)
+      loginNetworkRepository.login(email, password)
 
     assertEquals(foundAccessToken, Right(accessToken))
-    verify(service).login(EMAIL, PASSWORD)
+    verify(service).login(email, password)
   }
 
   @Test fun `should get error in the Left side of Either`() {
     response = Try.raiseError(LoginEndpointException.IncorrectEmailOrPasswordException())
 
-    given { service.login(EMAIL, PASSWORD) }.willReturn(response)
+    given { service.login(email, password) }.willReturn(response)
 
     val result =
-      loginNetworkRepository.login(EMAIL, PASSWORD)
+      loginNetworkRepository.login(email, password)
 
     assertTrue(result.isLeft())
     result.fold(

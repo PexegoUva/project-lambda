@@ -8,12 +8,10 @@ import kotlin.test.assertFailsWith
 import kotlin.test.assertNotNull
 
 class LoginApiTest: UnitTest() {
-  companion object{
-    const val CORRECT_EMAIL = "pexegouva@leviathan.com"
-    const val CORRECT_PASSWORD = "chupliflascinoso"
-    const val INCORRECT_EMAIL = "just_another_fake_email"
-    const val INCORRECT_PASSWORD = "just_another_fake_password"
-  }
+  private val correctEmail = "pexegouva@leviathan.com"
+  private val correctPassword = "chupliflascinoso"
+  private val incorrectEmail = "just_another_fake_email"
+  private val incorrectPassword = "just_another_fake_password"
 
   private lateinit var loginApi: LoginApi
 
@@ -22,7 +20,7 @@ class LoginApiTest: UnitTest() {
   }
 
   @Test fun `should return new accessToken when correct credentials`() {
-    val result = loginApi.login(CORRECT_EMAIL, CORRECT_PASSWORD)
+    val result = loginApi.login(correctEmail, correctPassword)
     assertNotNull(result)
     assertEquals(result::class, AccessTokenEntity::class)
   }
@@ -30,7 +28,7 @@ class LoginApiTest: UnitTest() {
   @Test
   fun `should throw IncorrectEmailOrPassword when incorrect credentials`() {
     assertFailsWith<LoginEndpointException.IncorrectEmailOrPasswordException> {
-      loginApi.login(INCORRECT_EMAIL, INCORRECT_PASSWORD)
+      loginApi.login(incorrectEmail, incorrectPassword)
     }
   }
 }

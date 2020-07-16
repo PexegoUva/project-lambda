@@ -18,6 +18,9 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class PostLoginRequestTest: AcceptanceTest<LoginActivity>(LoginActivity::class.java) {
+  private val incorrectEmail = "another_incorrect_email"
+  private val incorrectPassword = "another_incorrect_password"
+
   private lateinit var loginActivity: LoginActivity
 
   @Before
@@ -26,17 +29,22 @@ class PostLoginRequestTest: AcceptanceTest<LoginActivity>(LoginActivity::class.j
   }
 
   @Test
-  fun when_incorrect_email_or_password_error_message_is_shown() {
-    onView(withId(R.id.loginScreenEmail)).perform(typeText("hoygan"), closeSoftKeyboard())
-    onView(withId(R.id.loginScreenPassword)).perform(typeText("password_hoygan"), closeSoftKeyboard())
+  fun whenIncorrectEmailOrPasswordErrorMessageIsShown() {
+    givenIncorrectEmailAndPasswordSigninClick()
+    checkToastIsShownWithErrorMessage()
+  }
 
-    onView(withId(R.id.loginScreenEmail))
-      .check(matches(withText("hoygan")))
-    onView(withId(R.id.loginScreenPassword))
-      .check(matches(withText("password_hoygan")))
+  private fun givenIncorrectEmailAndPasswordSigninClick() {
+    onView(withId(R.id.loginScreenEmail)).perform(typeText(incorrectEmail), closeSoftKeyboard())
+    onView(withId(R.id.loginScreenPassword)).perform(typeText(incorrectPassword), closeSoftKeyboard())
+
+    onView(withId(R.id.loginScreenEmail)).check(matches(withText(incorrectEmail)))
+    onView(withId(R.id.loginScreenPassword)).check(matches(withText(incorrectPassword)))
 
     onView(withId(R.id.loginScreenSigninButton)).perform(click())
+  }
 
+  private fun checkToastIsShownWithErrorMessage() {
     onView(withText(R.string.failure_incorrect_email_or_password))
       .inRoot(withDecorView(not(loginActivity.window.decorView)))
       .check(matches(isDisplayed()))
