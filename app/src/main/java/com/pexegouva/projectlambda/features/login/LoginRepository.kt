@@ -9,4 +9,7 @@ class LoginRepository(private val loginDataStoreFactory: LoginDataStoreFactory):
 
   override fun storeToken(accessToken: AccessToken): Either<Failure, Boolean> =
     loginDataStoreFactory.dbBased().storeToken(accessToken)
+
+  override fun getAccessToken(): Either<Failure, AccessToken> =
+    loginDataStoreFactory.dbBased().getAccessToken()
 }
