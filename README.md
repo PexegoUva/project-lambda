@@ -15,7 +15,7 @@ To support a clean project without bugs and a good code structure, I have added 
 
 #### Lint
  - [Detekt](https://github.com/PexegoUva/project-lambda/wiki/detekt-lint) as a static analyzer that provider a wrapper around `ktlint` 
- - [Jacoco](https://github.com/PexegoUva/project-lambda/wiki/jacoco-code-coverage) as a code coverage reports generator (I want to know if my code is tested or not).
+ - [Jacoco](https://github.com/PexegoUva/project-lambda/wiki/Jacoco-Test-Coverage) as a code coverage reports generator (I want to know if my code is tested or not).
  - The generic lint for the kotlin code by using `./gradlew lintDebug`
  
 #### Compilation
@@ -27,4 +27,4 @@ To support a clean project without bugs and a good code structure, I have added 
 ### Releases
 To be able to try the app and check code, you can find `apk` and project files in the [Release](https://github.com/PexegoUva/project-lambda/releases) section of github.
 
-There, you will find each Release generated in the project. At the moment the final Release version should be `v1.1.0-release` 
+There, you will find each Release generated in the project. At the moment the final Release version should be `v1.1.1-release` 
