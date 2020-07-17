@@ -1,7 +1,5 @@
 package com.pexegouva.projectlambda.acceptance
 
-import android.app.Activity
-import android.app.Instrumentation
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches

@@ -1,6 +1,7 @@
 package com.pexegouva.projectlambda.features.login
 
 import com.pexegouva.projectlambda.UnitTest
+import com.pexegouva.projectlambda.features.authentication.AccessTokenEntity
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals

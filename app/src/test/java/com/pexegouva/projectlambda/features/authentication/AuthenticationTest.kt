@@ -4,9 +4,7 @@ import arrow.core.Left
 import arrow.core.Right
 import com.nhaarman.mockitokotlin2.whenever
 import com.pexegouva.projectlambda.UnitTest
-import com.pexegouva.projectlambda.features.login.AccessToken
-import com.pexegouva.projectlambda.features.login.LoginActivity
-import com.pexegouva.projectlambda.features.login.LoginFailures
+import com.pexegouva.projectlambda.base.error.Failure
 import com.pexegouva.projectlambda.features.login.LoginRepository
 import org.junit.Before
 import org.junit.Test
@@ -25,7 +23,7 @@ class AuthenticationTest: UnitTest() {
 
   @Test
   fun `should return false when Failure`() {
-    whenever(loginRepository.getAccessToken()).thenReturn(Left(LoginFailures.DbFailure()))
+    whenever(loginRepository.getAccessToken()).thenReturn(Left(Failure.DbFailure()))
     assertEquals(authenticator.userIsAuthenticated(), false)
   }
 

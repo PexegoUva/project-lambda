@@ -5,6 +5,7 @@ import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.pexegouva.projectlambda.UnitTest
+import com.pexegouva.projectlambda.features.authentication.AccessToken
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock

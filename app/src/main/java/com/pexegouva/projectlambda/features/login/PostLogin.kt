@@ -2,6 +2,7 @@ package com.pexegouva.projectlambda.features.login
 
 import arrow.core.Either
 import com.pexegouva.projectlambda.base.error.Failure
+import com.pexegouva.projectlambda.features.authentication.AccessToken
 
 class PostLogin(
   private val loginRepository: LoginRepository

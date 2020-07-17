@@ -2,6 +2,8 @@ package com.pexegouva.projectlambda.features.login
 
 import com.pexegouva.projectlambda.base.mvp.Presenter
 import com.pexegouva.projectlambda.base.mvp.View
+import com.pexegouva.projectlambda.features.authentication.AccessToken
+import com.pexegouva.projectlambda.features.authentication.AccessTokenModel
 
 class LoginPresenter(
   private val postLogin: PostLogin,

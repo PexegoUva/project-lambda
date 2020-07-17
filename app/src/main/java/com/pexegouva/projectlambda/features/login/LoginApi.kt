@@ -1,6 +1,7 @@
 package com.pexegouva.projectlambda.features.login
 
 import com.pexegouva.projectlambda.base.extension.isEqual
+import com.pexegouva.projectlambda.features.authentication.AccessTokenEntity
 
 class LoginApi: ILoginApi {
   companion object {

@@ -5,6 +5,9 @@ import arrow.core.Try
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.verify
 import com.pexegouva.projectlambda.UnitTest
+import com.pexegouva.projectlambda.base.error.Failure
+import com.pexegouva.projectlambda.features.authentication.AccessToken
+import com.pexegouva.projectlambda.features.authentication.AccessTokenEntity
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -41,7 +44,7 @@ class DatabaseRepositoryTest: UnitTest() {
 
     assertTrue(result.isLeft())
     result.fold(
-      { failure -> assertEquals(failure::class, LoginFailures.DbFailure::class) },
+      { failure -> assertEquals(failure::class, Failure.DbFailure::class) },
       { }
     )
   }
@@ -62,7 +65,28 @@ class DatabaseRepositoryTest: UnitTest() {
 
     assertTrue(result.isLeft())
     result.fold(
-      { failure -> assertEquals(failure::class, LoginFailures.DbFailure::class) },
+      { failure -> assertEquals(failure::class, Failure.DbFailure::class) },
+      { }
+    )
+  }
+
+  @Test fun `should get True in Right side of Either for deleteSessionToken`() {
+    given { loginDao.deleteSessionToken() }.willReturn(Try{ true })
+
+    val result = loginDatabaseRepository.logout()
+
+    assertEquals(result, Right(true))
+    verify(loginDao).deleteSessionToken()
+  }
+
+  @Test fun `should get error in the Left side of Either for deleteSessionToken`() {
+    given { loginDao.deleteSessionToken() }.willReturn(Try.raiseError(Exception()))
+
+    val result = loginDatabaseRepository.logout()
+
+    assertTrue(result.isLeft())
+    result.fold(
+      { failure -> assertEquals(failure::class, Failure.DbFailure::class) },
       { }
     )
   }
