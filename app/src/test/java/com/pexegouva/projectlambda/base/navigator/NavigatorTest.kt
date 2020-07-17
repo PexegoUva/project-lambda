@@ -44,4 +44,10 @@ class NavigatorTest: AndroidTest() {
 
     navigatesTo(originActivity, LogoutActivity())
   }
+
+  @Test fun `should take user to login screen`() {
+    navigator.showLogin(originActivity)
+
+    navigatesTo(originActivity, LoginActivity())
+  }
 }

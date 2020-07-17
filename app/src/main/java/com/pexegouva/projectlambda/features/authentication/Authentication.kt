@@ -1,6 +1,5 @@
 package com.pexegouva.projectlambda.features.authentication
 
-import com.pexegouva.projectlambda.features.login.AccessToken
 import com.pexegouva.projectlambda.features.login.LoginRepository
 
 class Authentication(

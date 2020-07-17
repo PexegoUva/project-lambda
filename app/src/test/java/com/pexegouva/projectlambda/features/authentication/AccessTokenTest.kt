@@ -1,4 +1,4 @@
-package com.pexegouva.projectlambda.features.login
+package com.pexegouva.projectlambda.features.authentication
 
 import com.pexegouva.projectlambda.UnitTest
 import org.junit.Before
@@ -7,7 +7,8 @@ import kotlin.test.assertEquals
 
 class AccessTokenTest: UnitTest() {
   private val fakeToken = "just_another_fake_email"
-  private val accessTokenClassName = "com.pexegouva.projectlambda.features.login.AccessTokenEntity"
+  private val accessTokenClassName =
+    "com.pexegouva.projectlambda.features.authentication.AccessTokenEntity"
 
   private lateinit var accessToken: AccessToken
 

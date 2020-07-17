@@ -3,6 +3,7 @@ package com.pexegouva.projectlambda.features.login
 import arrow.core.Left
 import arrow.core.Right
 import com.pexegouva.projectlambda.AndroidTest
+import com.pexegouva.projectlambda.features.authentication.AccessToken
 import org.junit.Before
 import org.junit.Test
 import org.koin.test.inject
@@ -27,7 +28,11 @@ class LoginRepositoryTest: AndroidTest() {
 
   @Test
   fun `should return db data store when storing token`() {
-    val result = loginRepository.storeToken(AccessToken("fake_token"))
+    val result = loginRepository.storeToken(
+      AccessToken(
+        "fake_token"
+      )
+    )
     assertNotNull(result)
     assertEquals(result::class.java.name, Right(true)::class.java.name)
   }
@@ -35,6 +40,13 @@ class LoginRepositoryTest: AndroidTest() {
   @Test
   fun `should return db data store when getting token`() {
     val result = loginRepository.getAccessToken()
+    assertNotNull(result)
+    assertEquals(result::class.java.name, Right("")::class.java.name)
+  }
+
+  @Test
+  fun `should return db data store when successful logout`() {
+    val result = loginRepository.logout()
     assertNotNull(result)
     assertEquals(result::class.java.name, Right(true)::class.java.name)
   }

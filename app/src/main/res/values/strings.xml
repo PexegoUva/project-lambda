@@ -9,4 +9,5 @@
     <string name="logout_screen_logout_button_text">Logout</string>
 
     <string name="failure_incorrect_email_or_password">Incorrect email or password, try again</string>
+    <string name="failure_db">Unexpected DB error, try again</string>
 </resources>

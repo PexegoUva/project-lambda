@@ -5,6 +5,8 @@ import arrow.core.Try
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.verify
 import com.pexegouva.projectlambda.UnitTest
+import com.pexegouva.projectlambda.features.authentication.AccessToken
+import com.pexegouva.projectlambda.features.authentication.AccessTokenEntity
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -17,7 +19,7 @@ class NetworkRepositoryTest: UnitTest() {
 
   private lateinit var loginNetworkRepository: ILoginRepository.Network
   private lateinit var accessToken: AccessToken
-  private lateinit var response: Try<AccessTokenEntity>
+  private lateinit var loginResponse: Try<AccessTokenEntity>
 
   @Mock private lateinit var service: LoginService
   @Mock private lateinit var accessTokenEntity: AccessTokenEntity
@@ -27,10 +29,10 @@ class NetworkRepositoryTest: UnitTest() {
   }
 
   @Test fun `should get correct accessToken in Right side of Either`() {
-    response = Try{ accessTokenEntity }
+    loginResponse = Try{ accessTokenEntity }
     accessToken = AccessToken("fake_token")
 
-    given { service.login(email, password) }.willReturn(response)
+    given { service.login(email, password) }.willReturn(loginResponse)
     given { accessTokenEntity.toAccessToken() }.willReturn(accessToken)
 
     val foundAccessToken =
@@ -41,9 +43,9 @@ class NetworkRepositoryTest: UnitTest() {
   }
 
   @Test fun `should get error in the Left side of Either`() {
-    response = Try.raiseError(LoginEndpointException.IncorrectEmailOrPasswordException())
+    loginResponse = Try.raiseError(LoginEndpointException.IncorrectEmailOrPasswordException())
 
-    given { service.login(email, password) }.willReturn(response)
+    given { service.login(email, password) }.willReturn(loginResponse)
 
     val result =
       loginNetworkRepository.login(email, password)
@@ -53,5 +55,10 @@ class NetworkRepositoryTest: UnitTest() {
       { failure -> assertEquals(failure::class, LoginFailures.IncorrectEmailOrPassword::class) },
       { }
     )
+  }
+
+  @Test fun `should get true in the Right side of Either`() {
+    val result = loginNetworkRepository.logout()
+    assertTrue(result.isRight())
   }
 }

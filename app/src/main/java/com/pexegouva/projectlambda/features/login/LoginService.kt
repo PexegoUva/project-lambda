@@ -1,6 +1,7 @@
 package com.pexegouva.projectlambda.features.login
 
 import arrow.core.Try
+import com.pexegouva.projectlambda.features.authentication.AccessTokenEntity
 
 class LoginService {
   private val loginApi by lazy { LoginApi() }
