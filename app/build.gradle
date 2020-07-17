@@ -80,7 +80,7 @@ android {
         // Manifest version information!
         def versionMajor = 1
         def versionMinor = 1
-        def versionPatch = 0
+        def versionPatch = 1
         def versionBuild = 'release'
 
         versionCode = versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100
