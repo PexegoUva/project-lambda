@@ -7,6 +7,7 @@ import com.pexegouva.projectlambda.R
 import com.pexegouva.projectlambda.base.error.Failure
 import com.pexegouva.projectlambda.base.mvp.BaseActivity
 import com.pexegouva.projectlambda.base.navigator.Navigator
+import com.pexegouva.projectlambda.features.authentication.AccessTokenModel
 import kotlinx.android.synthetic.main.login_layout.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.currentScope

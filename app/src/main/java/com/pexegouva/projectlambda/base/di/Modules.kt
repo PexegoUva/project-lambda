@@ -1,6 +1,7 @@
 package com.pexegouva.projectlambda.base.di
 
 import com.pexegouva.projectlambda.features.login.loginModule
+import com.pexegouva.projectlambda.features.logout.logoutModule
 
 val allModules =
   listOf(
@@ -8,7 +9,8 @@ val allModules =
 
     // Activity modules
     loginModule,
+    logoutModule,
 
     // Repository modules
-    loginRepositoryModule
+    authenticationRepositoryModule
   )

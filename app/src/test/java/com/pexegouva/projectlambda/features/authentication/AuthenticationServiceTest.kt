@@ -1,18 +1,20 @@
-package com.pexegouva.projectlambda.features.login
+package com.pexegouva.projectlambda.features.authentication
 
 import arrow.core.Try
 import com.pexegouva.projectlambda.UnitTest
+import com.pexegouva.projectlambda.features.login.LoginEndpointException
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-class LoginServiceTest: UnitTest() {
-  private lateinit var service: LoginService
+class AuthenticationServiceTest: UnitTest() {
+  private lateinit var service: AuthenticationService
 
   @Before
   fun setUp() {
-    service = LoginService()
+    service =
+      AuthenticationService()
   }
 
   @Test
@@ -21,7 +23,7 @@ class LoginServiceTest: UnitTest() {
     assertNotNull(result)
     assertEquals(
       result::class.java.name,
-      Try{throw LoginEndpointException.IncorrectEmailOrPasswordException()}::class.java.name
+      Try{throw LoginEndpointException.IncorrectEmailOrPasswordException() }::class.java.name
     )
   }
 }
