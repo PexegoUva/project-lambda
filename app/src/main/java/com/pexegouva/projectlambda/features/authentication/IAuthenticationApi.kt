@@ -1,7 +1,7 @@
-package com.pexegouva.projectlambda.features.login
+package com.pexegouva.projectlambda.features.authentication
 
 import com.pexegouva.projectlambda.features.authentication.AccessTokenEntity
 
-internal interface ILoginApi {
+internal interface IAuthenticationApi {
   fun login(email: String, password: String): AccessTokenEntity
 }

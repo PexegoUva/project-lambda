@@ -27,21 +27,25 @@ class PostLogoutRequestTest: AcceptanceTest<LogoutActivity>(LogoutActivity::clas
 
   @Test
   fun whenCorrectLogoutRequest() {
-    Intents.init()
     givenExistingSessionTokenAndUserClicksOnLogoutButton()
-
-    Intents.intended(IntentMatchers.hasComponent(LoginActivity::class.java.name))
-    Intents.release()
-
-    val sessionToken = db.getString("current_user_session_token", "")
-    Assert.assertEquals(sessionToken, "")
+    thenUserShouldBeTakenToTheLoginScreenAndTokenRemoved()
   }
 
   private fun givenExistingSessionTokenAndUserClicksOnLogoutButton() {
+    Intents.init()
+
     val editDB = db.edit()
     editDB.putString("current_user_session_token", "chupliflascino_token")
     editDB.apply()
 
     onView(withId(R.id.logoutScreenLogoutButton)).perform(click())
+  }
+
+  private fun thenUserShouldBeTakenToTheLoginScreenAndTokenRemoved() {
+    Intents.intended(IntentMatchers.hasComponent(LoginActivity::class.java.name))
+    Intents.release()
+
+    val sessionToken = db.getString("current_user_session_token", "")
+    Assert.assertEquals(sessionToken, "")
   }
 }

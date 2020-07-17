@@ -12,5 +12,5 @@ val allModules =
     logoutModule,
 
     // Repository modules
-    loginRepositoryModule
+    authenticationRepositoryModule
   )

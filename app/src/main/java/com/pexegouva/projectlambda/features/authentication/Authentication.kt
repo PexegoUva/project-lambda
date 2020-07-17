@@ -1,9 +1,7 @@
 package com.pexegouva.projectlambda.features.authentication
 
-import com.pexegouva.projectlambda.features.login.LoginRepository
-
 class Authentication(
-  private val loginRepository: LoginRepository
+  private val loginRepository: AuthenticationRepository
 ) {
   fun userIsAuthenticated(): Boolean {
     var tokenExists = false

@@ -8,8 +8,6 @@ import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.espresso.matcher.RootMatchers.withDecorView
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.LargeTest
 import com.pexegouva.projectlambda.AcceptanceTest
 import com.pexegouva.projectlambda.R
 import com.pexegouva.projectlambda.features.login.LoginActivity
@@ -17,10 +15,7 @@ import com.pexegouva.projectlambda.features.logout.LogoutActivity
 import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4::class)
-@LargeTest
 class PostLoginRequestTest: AcceptanceTest<LoginActivity>(LoginActivity::class.java) {
   private val incorrectEmail = "another_incorrect_email"
   private val incorrectPassword = "another_incorrect_password"
@@ -37,17 +32,13 @@ class PostLoginRequestTest: AcceptanceTest<LoginActivity>(LoginActivity::class.j
   @Test
   fun whenIncorrectEmailOrPasswordErrorMessageIsShown() {
     givenIncorrectEmailAndPasswordSigninClick()
-    checkToastIsShownWithErrorMessage()
+    thenUserIsShownToastIsShownWithErrorMessage()
   }
 
   @Test
   fun whenCorrectEmailAndPasswordNavigatesToLogoutView() {
     givenCorrectEmailAndPassword()
-
-    Intents.init()
-    onView(withId(R.id.loginScreenSigninButton)).perform(click())
-    intended(hasComponent(LogoutActivity::class.java.name))
-    Intents.release()
+    thenUserIsTakenToTheLogoutScreen()
   }
 
   private fun givenCorrectEmailAndPassword() {
@@ -68,9 +59,16 @@ class PostLoginRequestTest: AcceptanceTest<LoginActivity>(LoginActivity::class.j
     onView(withId(R.id.loginScreenSigninButton)).perform(click())
   }
 
-  private fun checkToastIsShownWithErrorMessage() {
+  private fun thenUserIsShownToastIsShownWithErrorMessage() {
     onView(withText(R.string.failure_incorrect_email_or_password))
       .inRoot(withDecorView(not(loginActivity.window.decorView)))
       .check(matches(isDisplayed()))
+  }
+
+  private fun thenUserIsTakenToTheLogoutScreen() {
+    Intents.init()
+    onView(withId(R.id.loginScreenSigninButton)).perform(click())
+    intended(hasComponent(LogoutActivity::class.java.name))
+    Intents.release()
   }
 }

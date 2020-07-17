@@ -1,12 +1,14 @@
-package com.pexegouva.projectlambda.features.login
+package com.pexegouva.projectlambda.features.authentication
 
 import arrow.core.Right
 import arrow.core.Try
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.verify
 import com.pexegouva.projectlambda.UnitTest
-import com.pexegouva.projectlambda.features.authentication.AccessToken
-import com.pexegouva.projectlambda.features.authentication.AccessTokenEntity
+import com.pexegouva.projectlambda.features.login.LoginEndpointException
+import com.pexegouva.projectlambda.features.login.LoginFailures
+import org.hamcrest.core.StringContains
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -17,15 +19,15 @@ class NetworkRepositoryTest: UnitTest() {
   private val email = "pexegouva@leviathan.com"
   private val password = "chupliflascinoso"
 
-  private lateinit var loginNetworkRepository: ILoginRepository.Network
+  private lateinit var authenticationNetworkRepository: IAuthenticationRepository.Network
   private lateinit var accessToken: AccessToken
   private lateinit var loginResponse: Try<AccessTokenEntity>
 
-  @Mock private lateinit var service: LoginService
+  @Mock private lateinit var service: AuthenticationService
   @Mock private lateinit var accessTokenEntity: AccessTokenEntity
 
   @Before fun setUp() {
-    loginNetworkRepository = ILoginRepository.Network(service)
+    authenticationNetworkRepository = IAuthenticationRepository.Network(service)
   }
 
   @Test fun `should get correct accessToken in Right side of Either`() {
@@ -36,7 +38,7 @@ class NetworkRepositoryTest: UnitTest() {
     given { accessTokenEntity.toAccessToken() }.willReturn(accessToken)
 
     val foundAccessToken =
-      loginNetworkRepository.login(email, password)
+      authenticationNetworkRepository.login(email, password)
 
     assertEquals(foundAccessToken, Right(accessToken))
     verify(service).login(email, password)
@@ -48,7 +50,7 @@ class NetworkRepositoryTest: UnitTest() {
     given { service.login(email, password) }.willReturn(loginResponse)
 
     val result =
-      loginNetworkRepository.login(email, password)
+      authenticationNetworkRepository.login(email, password)
 
     assertTrue(result.isLeft())
     result.fold(
@@ -58,7 +60,27 @@ class NetworkRepositoryTest: UnitTest() {
   }
 
   @Test fun `should get true in the Right side of Either`() {
-    val result = loginNetworkRepository.logout()
+    val result = authenticationNetworkRepository.logout()
     assertTrue(result.isRight())
+  }
+
+  @Test fun `storeToken should get error operation not implemented`() {
+    try {
+      authenticationNetworkRepository.storeToken(AccessToken("fake_token"))
+    } catch (e: NotImplementedError) {
+      Assert.assertThat(e.message,
+        StringContains("An operation is not implemented: Not yet implemented")
+      )
+    }
+  }
+
+  @Test fun `getAccessToken should get error operation not implemented`() {
+    try {
+      authenticationNetworkRepository.getAccessToken()
+    } catch (e: NotImplementedError) {
+      Assert.assertThat(e.message,
+        StringContains("An operation is not implemented: Not yet implemented")
+      )
+    }
   }
 }

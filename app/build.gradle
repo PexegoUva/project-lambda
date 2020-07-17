@@ -79,9 +79,9 @@ android {
 
         // Manifest version information!
         def versionMajor = 1
-        def versionMinor = 0
+        def versionMinor = 1
         def versionPatch = 0
-        def versionBuild = 'debug'
+        def versionBuild = 'release'
 
         versionCode = versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100
         versionName = "${versionMajor}.${versionMinor}.${versionPatch}"

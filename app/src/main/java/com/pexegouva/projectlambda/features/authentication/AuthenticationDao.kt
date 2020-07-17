@@ -1,10 +1,9 @@
-package com.pexegouva.projectlambda.features.login
+package com.pexegouva.projectlambda.features.authentication
 
 import android.content.SharedPreferences
 import arrow.core.Try
-import com.pexegouva.projectlambda.features.authentication.AccessTokenEntity
 
-class LoginDao(
+class AuthenticationDao(
   private val sessionTokenDb: SharedPreferences
 ) {
   companion object {

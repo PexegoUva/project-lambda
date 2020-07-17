@@ -1,34 +1,37 @@
-package com.pexegouva.projectlambda.features.login
+package com.pexegouva.projectlambda.features.authentication
 
 import arrow.core.Left
 import arrow.core.Right
 import com.pexegouva.projectlambda.AndroidTest
-import com.pexegouva.projectlambda.features.authentication.AccessToken
+import com.pexegouva.projectlambda.features.login.LoginFailures
 import org.junit.Before
 import org.junit.Test
 import org.koin.test.inject
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-class LoginRepositoryTest: AndroidTest() {
-  private lateinit var loginRepository: LoginRepository
-  private val loginDataStoreFactory: LoginDataStoreFactory by inject()
+class AuthenticationRepositoryTest: AndroidTest() {
+  private lateinit var authenticationRepository: AuthenticationRepository
+  private val authenticationDataStoreFactory: AuthenticationDataStoreFactory by inject()
 
   @Before
   fun cloudTest() {
-    loginRepository = LoginRepository(loginDataStoreFactory)
+    authenticationRepository =
+      AuthenticationRepository(
+        authenticationDataStoreFactory
+      )
   }
 
   @Test
   fun `should return cloud data store`() {
-    val result = loginRepository.login("fake_email", "fake_password")
+    val result = authenticationRepository.login("fake_email", "fake_password")
     assertNotNull(result)
     assertEquals(result::class.java.name, Left(LoginFailures.IncorrectEmailOrPassword())::class.java.name)
   }
 
   @Test
   fun `should return db data store when storing token`() {
-    val result = loginRepository.storeToken(
+    val result = authenticationRepository.storeToken(
       AccessToken(
         "fake_token"
       )
@@ -39,14 +42,14 @@ class LoginRepositoryTest: AndroidTest() {
 
   @Test
   fun `should return db data store when getting token`() {
-    val result = loginRepository.getAccessToken()
+    val result = authenticationRepository.getAccessToken()
     assertNotNull(result)
     assertEquals(result::class.java.name, Right("")::class.java.name)
   }
 
   @Test
   fun `should return db data store when successful logout`() {
-    val result = loginRepository.logout()
+    val result = authenticationRepository.logout()
     assertNotNull(result)
     assertEquals(result::class.java.name, Right(true)::class.java.name)
   }
